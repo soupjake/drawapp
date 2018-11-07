@@ -1,9 +1,7 @@
-# drawapp
+# DrawApp
 
-A new Flutter project.
+Sample Flutter Drawing App which allows the user to draw onto the canvas along with color picker and brush thickness slider.
+
 ![](drawapp.gif)
 
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+All code free to use and located within [/lib].(https://github.com/SnakeyHips/drawapp/tree/master/lib)
