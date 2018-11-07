@@ -1,7 +1,7 @@
 # drawapp
 
 A new Flutter project.
-![](https://i.imgur.com/6u2oKBV.gif)
+![](drawapp.gif)
 
 ## Getting Started
 
