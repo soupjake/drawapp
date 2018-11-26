@@ -66,6 +66,12 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Brush thickness'), findsOneWidget);
+    expect(find.text('CANCEL'), findsOneWidget);
+
+    await tester.tap(find.text('CANCEL'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Brush thickness'), findsNothing);
   });
 
   testWidgets('Clicking the color lens icon brings up the Brush color panel',
@@ -85,5 +91,16 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Brush color'), findsOneWidget);
+    expect(
+        find.byWidgetPredicate((widget) =>
+            widget is FloatingActionButton &&
+            widget.backgroundColor == Colors.red),
+        findsOneWidget);
+
+    await tester.tap(find.byWidgetPredicate((widget) =>
+        widget is FloatingActionButton &&
+        widget.backgroundColor == Colors.red));
+    await tester.pumpAndSettle();
+    expect(find.text('Brush color'), findsNothing);
   });
 }
