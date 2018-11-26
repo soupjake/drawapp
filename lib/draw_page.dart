@@ -11,6 +11,7 @@ class DrawPage extends StatefulWidget {
 
 class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
   AnimationController controller;
+  bool fabExpanded = false;
   List<Offset> points = <Offset>[];
   Color color = Colors.black;
   StrokeCap strokeCap = StrokeCap.round;
@@ -24,6 +25,17 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
+    controller.addStatusListener((listener) {
+      if (listener == AnimationStatus.dismissed) {
+        setState(() {
+          fabExpanded = false;
+        });
+      } else {
+        setState(() {
+          fabExpanded = true;
+        });
+      }
+    });
   }
 
   @override
@@ -52,110 +64,126 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
           ),
         ),
       ),
-      floatingActionButton:
-          Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-        Container(
-          height: 70.0,
-          width: 56.0,
-          alignment: FractionalOffset.topCenter,
-          child: ScaleTransition(
-            scale: CurvedAnimation(
-              parent: controller,
-              curve: Interval(0.0, 1.0 - 0 / 3 / 2.0, curve: Curves.easeOut),
-            ),
-            child: FloatingActionButton(
-              mini: true,
-              child: Icon(Icons.clear),
-              onPressed: () {
-                points.clear();
-                for (Painter painter in painters) {
-                  painter.points.clear();
-                }
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          fabExpanded
+              ? Container(
+                  height: 70.0,
+                  width: 56.0,
+                  alignment: FractionalOffset.topCenter,
+                  child: ScaleTransition(
+                    scale: CurvedAnimation(
+                      parent: controller,
+                      curve: Interval(0.0, 1.0 - 0 / 3 / 2.0,
+                          curve: Curves.easeOut),
+                    ),
+                    child: FloatingActionButton(
+                      mini: true,
+                      child: Icon(Icons.clear),
+                      onPressed: () {
+                        points.clear();
+                        for (Painter painter in painters) {
+                          painter.points.clear();
+                        }
+                      },
+                    ),
+                  ),
+                )
+              : null,
+          fabExpanded
+              ? Container(
+                  height: 70.0,
+                  width: 56.0,
+                  alignment: FractionalOffset.topCenter,
+                  child: ScaleTransition(
+                    scale: CurvedAnimation(
+                      parent: controller,
+                      curve: Interval(0.0, 1.0 - 1 / 3 / 2.0,
+                          curve: Curves.easeOut),
+                    ),
+                    child: FloatingActionButton(
+                      mini: true,
+                      child: Icon(Icons.lens),
+                      onPressed: () async {
+                        double temp;
+                        temp = await showDialog(
+                            context: context,
+                            builder: (context) =>
+                                WidthDialog(strokeWidth: strokeWidth));
+                        if (temp != null) {
+                          setState(() {
+                            painters.add(Painter(
+                                points: points.toList(),
+                                color: color,
+                                strokeCap: strokeCap,
+                                strokeWidth: strokeWidth));
+                            points.clear();
+                            strokeWidth = temp;
+                          });
+                        }
+                      },
+                    ),
+                  ),
+                )
+              : null,
+          fabExpanded
+              ? Container(
+                  height: 70.0,
+                  width: 56.0,
+                  alignment: FractionalOffset.topCenter,
+                  child: ScaleTransition(
+                    scale: CurvedAnimation(
+                      parent: controller,
+                      curve: Interval(0.0, 1.0 - 2 / 3 / 2.0,
+                          curve: Curves.easeOut),
+                    ),
+                    child: FloatingActionButton(
+                      mini: true,
+                      child: Icon(Icons.color_lens),
+                      onPressed: () async {
+                        Color temp;
+                        temp = await showDialog(
+                            context: context,
+                            builder: (context) => ColorDialog());
+                        if (temp != null) {
+                          setState(() {
+                            painters.add(Painter(
+                                points: points.toList(),
+                                color: color,
+                                strokeCap: strokeCap,
+                                strokeWidth: strokeWidth));
+                            points.clear();
+                            color = temp;
+                          });
+                        }
+                      },
+                    ),
+                  ),
+                )
+              : null,
+          FloatingActionButton(
+            child: AnimatedBuilder(
+              animation: controller,
+              builder: (BuildContext context, Widget child) {
+                return Transform(
+                  transform:
+                      Matrix4.rotationZ(controller.value * 0.5 * math.pi),
+                  alignment: FractionalOffset.center,
+                  child: Icon(Icons.brush),
+                );
               },
             ),
-          ),
-        ),
-        Container(
-          height: 70.0,
-          width: 56.0,
-          alignment: FractionalOffset.topCenter,
-          child: ScaleTransition(
-            scale: CurvedAnimation(
-              parent: controller,
-              curve: Interval(0.0, 1.0 - 1 / 3 / 2.0, curve: Curves.easeOut),
-            ),
-            child: FloatingActionButton(
-              mini: true,
-              child: Icon(Icons.lens),
-              onPressed: () async {
-                double temp;
-                temp = await showDialog(
-                    context: context, builder: (context) => WidthDialog(strokeWidth: strokeWidth));
-                if (temp != null) {
-                  setState(() {
-                    painters.add(Painter(
-                        points: points.toList(),
-                        color: color,
-                        strokeCap: strokeCap,
-                        strokeWidth: strokeWidth));
-                    points.clear();
-                    strokeWidth = temp;
-                  });
-                }
-              },
-            ),
-          ),
-        ),
-        Container(
-            height: 70.0,
-            width: 56.0,
-            alignment: FractionalOffset.topCenter,
-            child: ScaleTransition(
-                scale: CurvedAnimation(
-                  parent: controller,
-                  curve:
-                      Interval(0.0, 1.0 - 2 / 3 / 2.0, curve: Curves.easeOut),
-                ),
-                child: FloatingActionButton(
-                    mini: true,
-                    child: Icon(Icons.color_lens),
-                    onPressed: () async {
-                      Color temp;
-                      temp = await showDialog(
-                          context: context,
-                          builder: (context) => ColorDialog());
-                      if (temp != null) {
-                        setState(() {
-                          painters.add(Painter(
-                              points: points.toList(),
-                              color: color,
-                              strokeCap: strokeCap,
-                              strokeWidth: strokeWidth));
-                          points.clear();
-                          color = temp;
-                        });
-                      }
-                    }))),
-        FloatingActionButton(
-          child: AnimatedBuilder(
-            animation: controller,
-            builder: (BuildContext context, Widget child) {
-              return Transform(
-                transform: Matrix4.rotationZ(controller.value * 0.5 * math.pi),
-                alignment: FractionalOffset.center,
-                child: Icon(Icons.brush),
-              );
+            onPressed: () {
+              if (controller.isDismissed) {
+                controller.forward();
+              } else {
+                controller.reverse();
+              }
             },
           ),
-          onPressed: () {
-            if (controller.isDismissed) {
-              controller.forward();
-            } else {
-              controller.reverse();
-            }
-          },
-        ),
-      ]),
+        ].where((widget) => widget != null).toList(),
+      ),
     );
   }
 }
