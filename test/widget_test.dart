@@ -6,8 +6,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:drawapp/app.dart';
+import './color_dialog_tester.dart';
 
 void main() {
   testWidgets('Clicking brush FAB displays mini fabs', (tester) async {
@@ -102,5 +102,40 @@ void main() {
         widget.backgroundColor == Colors.red));
     await tester.pumpAndSettle();
     expect(find.text('Brush color'), findsNothing);
+  });
+
+  testWidgets('Test Color Dialog', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        title: 'DrawApp',
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Color Dialog Tester'),
+          ),
+          body: ColorDialogTester(),
+        ),
+      ),
+    );
+
+    expect(find.text('Select Color'), findsOneWidget);
+    expect(find.text('Selected color null'), findsOneWidget);
+    
+    await tester.tap(find.text('Select Color'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Brush color'), findsOneWidget);
+    expect(
+        find.byWidgetPredicate((widget) =>
+            widget is FloatingActionButton &&
+            widget.backgroundColor == Colors.red),
+        findsOneWidget);
+
+    await tester.tap(find.byWidgetPredicate((widget) =>
+        widget is FloatingActionButton &&
+        widget.backgroundColor == Colors.red));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Brush color'), findsNothing);
+    expect(find.text('Selected color Color(0xfff44336)'), findsOneWidget);
   });
 }

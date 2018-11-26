@@ -140,10 +140,10 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
                       mini: true,
                       child: Icon(Icons.color_lens),
                       onPressed: () async {
-                        Color temp;
-                        temp = await showDialog(
-                            context: context,
-                            builder: (context) => ColorDialog());
+                        Color temp = await showDialog(
+                          context: context,
+                          builder: (context) => ColorDialog(),
+                        );
                         if (temp != null) {
                           setState(() {
                             painters.add(Painter(
