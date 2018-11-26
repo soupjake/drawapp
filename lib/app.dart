@@ -1,4 +1,4 @@
-import 'package:drawapp/home_page.dart';
+import 'package:drawapp/draw_page.dart';
 import 'package:flutter/material.dart';
 
 class DrawApp extends StatelessWidget {
@@ -6,7 +6,11 @@ class DrawApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'DrawApp',
-      home: HomePage(title: "DrawApp"),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('DrawApp'),
+        ),
+        body: DrawPage()),
     );
   }
 }
