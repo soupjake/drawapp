@@ -11,7 +11,7 @@ class DrawPage extends StatefulWidget {
 
 class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
   AnimationController controller;
-  bool fabExpanded = false;
+  AnimationStatus animationStatus = AnimationStatus.dismissed;
   List<Offset> points = <Offset>[];
   Color color = Colors.black;
   StrokeCap strokeCap = StrokeCap.round;
@@ -25,14 +25,12 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
+
+    // The widgets returned by build(...) change when animationStatus changes
     controller.addStatusListener((listener) {
-      if (listener == AnimationStatus.dismissed) {
+      if (listener != animationStatus) {
         setState(() {
-          fabExpanded = false;
-        });
-      } else {
-        setState(() {
-          fabExpanded = true;
+          animationStatus = listener;
         });
       }
     });
@@ -67,7 +65,7 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          fabExpanded
+          !controller.isDismissed
               ? Container(
                   height: 70.0,
                   width: 56.0,
@@ -91,7 +89,7 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
                   ),
                 )
               : null,
-          fabExpanded
+          !controller.isDismissed
               ? Container(
                   height: 70.0,
                   width: 56.0,
@@ -127,7 +125,7 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
                   ),
                 )
               : null,
-          fabExpanded
+          !controller.isDismissed
               ? Container(
                   height: 70.0,
                   width: 56.0,
