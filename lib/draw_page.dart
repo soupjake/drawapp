@@ -46,7 +46,6 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
               RenderBox object = context.findRenderObject();
               Offset localPosition =
                   object.globalToLocal(details.globalPosition);
-              points = new List.from(points);
               points.add(localPosition);
             });
           },
