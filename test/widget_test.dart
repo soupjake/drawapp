@@ -148,7 +148,9 @@ void main() {
           appBar: AppBar(
             title: Text('Width Dialog Tester'),
           ),
-          body: WidthDialogTester(),
+          body: WidthDialogTester(
+            initialWidth: 1.0,
+          ),
         ),
       ),
     );
@@ -160,13 +162,25 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Brush thickness'), findsOneWidget);
+    expect(find.byWidgetPredicate(
+      (widget) {
+        return widget is Slider;
+      },
+    ), findsOneWidget);
     expect(find.text('ACCEPT'), findsOneWidget);
 
+    await tester.tap(
+      find.byWidgetPredicate(
+        (widget) {
+          return widget is Slider;
+        },
+      ),
+    );
     await tester.tap(find.text('ACCEPT'));
     await tester.pumpAndSettle();
 
     expect(find.text('Brush thickness'), findsNothing);
-    expect(find.text('Selected width 10.0'), findsOneWidget);
     debugDumpApp();
+    expect(find.text('Selected width 10.5'), findsOneWidget);
   });
 }

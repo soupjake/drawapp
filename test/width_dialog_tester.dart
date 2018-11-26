@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:drawapp/width_dialog.dart';
 
 class WidthDialogTester extends StatefulWidget {
+  final double initialWidth;
+
+  WidthDialogTester({@required this.initialWidth});
+
   @override
   State<WidthDialogTester> createState() {
-    return WidthDialogTestingState();
+    return WidthDialogTestingState(initialWidth);
   }
 }
 
 class WidthDialogTestingState extends State<WidthDialogTester> {
+  final double initialWidth;
   double strokeWidth = 0;
+
+  WidthDialogTestingState(this.initialWidth);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +28,9 @@ class WidthDialogTestingState extends State<WidthDialogTester> {
             onPressed: () async {
               var temp = await showDialog(
                 context: context,
-                builder: (context) => WidthDialog(strokeWidth: 10.0,),
+                builder: (context) => WidthDialog(
+                      strokeWidth: initialWidth,
+                    ),
               );
               setState(() {
                 strokeWidth = temp;
