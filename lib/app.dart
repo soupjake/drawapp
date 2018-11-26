@@ -5,8 +5,8 @@ class DrawApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-            title: 'DrawApp',
-            home: HomePage(title: "DrawApp"),
-          );
+      title: 'DrawApp',
+      home: HomePage(title: "DrawApp"),
+    );
   }
 }
