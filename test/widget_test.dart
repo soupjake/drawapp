@@ -180,7 +180,6 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Brush thickness'), findsNothing);
-    debugDumpApp();
     expect(find.text('Selected width 10.5'), findsOneWidget);
   });
 }
