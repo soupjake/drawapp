@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:drawapp/app.dart';
 import './color_dialog_tester.dart';
+import './width_dialog_tester.dart';
 
 void main() {
   testWidgets('Clicking brush FAB displays mini fabs', (tester) async {
@@ -119,7 +120,7 @@ void main() {
 
     expect(find.text('Select Color'), findsOneWidget);
     expect(find.text('Selected color null'), findsOneWidget);
-    
+
     await tester.tap(find.text('Select Color'));
     await tester.pumpAndSettle();
 
@@ -137,5 +138,35 @@ void main() {
 
     expect(find.text('Brush color'), findsNothing);
     expect(find.text('Selected color Color(0xfff44336)'), findsOneWidget);
+  });
+
+  testWidgets('Test Width Dialog', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        title: 'DrawApp',
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Width Dialog Tester'),
+          ),
+          body: WidthDialogTester(),
+        ),
+      ),
+    );
+
+    expect(find.text('Select Stroke Width'), findsOneWidget);
+    expect(find.text('Selected width 0.0'), findsOneWidget);
+
+    await tester.tap(find.text('Select Stroke Width'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Brush thickness'), findsOneWidget);
+    expect(find.text('ACCEPT'), findsOneWidget);
+
+    await tester.tap(find.text('ACCEPT'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Brush thickness'), findsNothing);
+    expect(find.text('Selected width 10.0'), findsOneWidget);
+    debugDumpApp();
   });
 }

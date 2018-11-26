@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class WidthDialog extends StatefulWidget {
   final double strokeWidth;
 
-  WidthDialog({this.strokeWidth});
+  WidthDialog({@required this.strokeWidth});
 
   @override
   State<StatefulWidget> createState() => WidthDialogState();
