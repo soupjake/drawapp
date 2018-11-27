@@ -82,7 +82,7 @@ class PainterBloc extends BlocBase {
     if (_locations.length > 0) {
       _strokes = (_strokes.toBuilder()..add(_stroke)).build();
       _strokesOut.add(_strokes);
-      _locations = ListBuilder().build();
+      _locations = BuiltList<TouchLocation>();
     }
   }
 

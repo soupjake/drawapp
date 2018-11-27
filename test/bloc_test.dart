@@ -15,7 +15,6 @@ void main() {
         ..x = 5
         ..y = 6;
     }));
-    painterBloc.endTouch.add(null);
     var callCount = 0;
     painterBloc.strokes.listen(expectAsync1(
       (strokes) {
@@ -29,9 +28,8 @@ void main() {
           expect(strokes[0].locations[1].y, 6);
         }
       },
-      count: 3,
+      count: 2,
     ));
   });
 
-  test('Change color splits strokes', () {});
 }
