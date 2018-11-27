@@ -5,13 +5,8 @@ import 'package:drawapp/models/touch_location.dart';
 import 'package:drawapp/models/stroke.dart';
 
 void main() {
-  test('PainterBloc', () {
+  test('Simple stroke', () {
     final painterBloc = PainterBloc();
-    var _strokes = BuiltList<Stroke>();
-    painterBloc.strokes.listen((strokes) {
-      _strokes = strokes;
-    });
-    expect(_strokes.length, 0);
     painterBloc.touchLocation.add(TouchLocation((builder) {
       builder
         ..x = 1
@@ -22,6 +17,23 @@ void main() {
         ..x = 5
         ..y = 6;
     }));
-    expect(_strokes.length, 1);
+    painterBloc.endTouch.add(null);
+    var callCount = 0;
+    painterBloc.strokes.listen(expectAsync1(
+      (strokes) {
+        callCount++;
+        if (callCount > 1) {
+          expect(strokes.length, 1);
+          expect(strokes[0].locations.length, 2);
+          expect(strokes[0].locations[0].x, 1);
+          expect(strokes[0].locations[0].y, 2);
+          expect(strokes[0].locations[1].x, 5);
+          expect(strokes[0].locations[1].y, 6);
+        }
+      },
+      count: 3,
+    ));
   });
+
+  test('Change color splits strokes', () {});
 }

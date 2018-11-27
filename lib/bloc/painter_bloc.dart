@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:built_collection/built_collection.dart';
+import 'package:rxdart/rxdart.dart';
 import '../models/color.dart';
 import '../models/stroke.dart';
 import '../models/touch_location.dart';
@@ -25,24 +26,22 @@ class PainterBloc extends BlocBase {
   int _width = 1;
 
   // Streamed input into this BLoC
-  final StreamController<TouchLocation> _touchLocationController =
-      StreamController();
+  final _touchLocationController = PublishSubject<TouchLocation>();
   StreamSink<TouchLocation> get touchLocation => _touchLocationController.sink;
 
-  final StreamController<Color> _colorController = StreamController();
+  final _colorController = PublishSubject<Color>();
   StreamSink<Color> get color => _colorController.sink;
 
-  final StreamController<int> _widthController = StreamController();
+  final _widthController = PublishSubject<int>();
   StreamSink<int> get strokeWidth => _widthController.sink;
 
-  final StreamController<void> _endTouchController = StreamController();
+  final _endTouchController = PublishSubject<void>();
   StreamSink<void> get endTouch => _endTouchController.sink;
 
   // Streamed output from this BLoC
-  final StreamController<BuiltList<Stroke>> _strokesController =
-      StreamController();
+  final _strokesController = PublishSubject<BuiltList<Stroke>>();
   StreamSink<BuiltList<Stroke>> get _strokesOut => _strokesController.sink;
-  Stream<BuiltList<Stroke>> get strokes => _strokesController.stream;
+  Observable<BuiltList<Stroke>> get strokes => _strokesController.stream;
 
   PainterBloc() {
     // Adding a touch continues the current stroke
@@ -65,7 +64,7 @@ class PainterBloc extends BlocBase {
     });
 
     // And ending the touch
-    _touchLocationController.stream.listen((_){
+    _endTouchController.stream.listen((_) {
       finalizeCurrentStroke();
     });
   }
@@ -80,11 +79,11 @@ class PainterBloc extends BlocBase {
       );
 
   void finalizeCurrentStroke() {
-      if (_locations.length > 0) {
-        _strokes = (_strokes.toBuilder()..add(_stroke)).build();
-        _strokesOut.add(_strokes);
-        _locations = ListBuilder().build();
-      }
+    if (_locations.length > 0) {
+      _strokes = (_strokes.toBuilder()..add(_stroke)).build();
+      _strokesOut.add(_strokes);
+      _locations = ListBuilder().build();
+    }
   }
 
   @override
