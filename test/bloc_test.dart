@@ -1,8 +1,6 @@
 import 'package:test/test.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:drawapp/bloc/painter_bloc.dart';
 import 'package:drawapp/models/touch_location.dart';
-import 'package:drawapp/models/stroke.dart';
 
 void main() {
   test('Simple stroke', () {
