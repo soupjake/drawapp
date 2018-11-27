@@ -19,35 +19,36 @@ part of 'touch_location.dart';
 // ignore_for_file: unnecessary_new
 // ignore_for_file: test_types_in_equals
 
-class _$TouchLocation extends TouchLocation {
+class _$TouchLocationEvent extends TouchLocationEvent {
   @override
-  final int x;
+  final double x;
   @override
-  final int y;
+  final double y;
 
-  factory _$TouchLocation([void updates(TouchLocationBuilder b)]) =>
-      (new TouchLocationBuilder()..update(updates)).build();
+  factory _$TouchLocationEvent([void updates(TouchLocationEventBuilder b)]) =>
+      (new TouchLocationEventBuilder()..update(updates)).build();
 
-  _$TouchLocation._({this.x, this.y}) : super._() {
+  _$TouchLocationEvent._({this.x, this.y}) : super._() {
     if (x == null) {
-      throw new BuiltValueNullFieldError('TouchLocation', 'x');
+      throw new BuiltValueNullFieldError('TouchLocationEvent', 'x');
     }
     if (y == null) {
-      throw new BuiltValueNullFieldError('TouchLocation', 'y');
+      throw new BuiltValueNullFieldError('TouchLocationEvent', 'y');
     }
   }
 
   @override
-  TouchLocation rebuild(void updates(TouchLocationBuilder b)) =>
+  TouchLocationEvent rebuild(void updates(TouchLocationEventBuilder b)) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  TouchLocationBuilder toBuilder() => new TouchLocationBuilder()..replace(this);
+  TouchLocationEventBuilder toBuilder() =>
+      new TouchLocationEventBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is TouchLocation && x == other.x && y == other.y;
+    return other is TouchLocationEvent && x == other.x && y == other.y;
   }
 
   @override
@@ -57,28 +58,28 @@ class _$TouchLocation extends TouchLocation {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('TouchLocation')
+    return (newBuiltValueToStringHelper('TouchLocationEvent')
           ..add('x', x)
           ..add('y', y))
         .toString();
   }
 }
 
-class TouchLocationBuilder
-    implements Builder<TouchLocation, TouchLocationBuilder> {
-  _$TouchLocation _$v;
+class TouchLocationEventBuilder
+    implements Builder<TouchLocationEvent, TouchLocationEventBuilder> {
+  _$TouchLocationEvent _$v;
 
-  int _x;
-  int get x => _$this._x;
-  set x(int x) => _$this._x = x;
+  double _x;
+  double get x => _$this._x;
+  set x(double x) => _$this._x = x;
 
-  int _y;
-  int get y => _$this._y;
-  set y(int y) => _$this._y = y;
+  double _y;
+  double get y => _$this._y;
+  set y(double y) => _$this._y = y;
 
-  TouchLocationBuilder();
+  TouchLocationEventBuilder();
 
-  TouchLocationBuilder get _$this {
+  TouchLocationEventBuilder get _$this {
     if (_$v != null) {
       _x = _$v.x;
       _y = _$v.y;
@@ -88,21 +89,21 @@ class TouchLocationBuilder
   }
 
   @override
-  void replace(TouchLocation other) {
+  void replace(TouchLocationEvent other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$TouchLocation;
+    _$v = other as _$TouchLocationEvent;
   }
 
   @override
-  void update(void updates(TouchLocationBuilder b)) {
+  void update(void updates(TouchLocationEventBuilder b)) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$TouchLocation build() {
-    final _$result = _$v ?? new _$TouchLocation._(x: x, y: y);
+  _$TouchLocationEvent build() {
+    final _$result = _$v ?? new _$TouchLocationEvent._(x: x, y: y);
     replace(_$result);
     return _$result;
   }

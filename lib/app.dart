@@ -1,4 +1,5 @@
 import 'package:drawapp/draw_page.dart';
+import 'package:drawapp/bloc/painter_bloc.dart';
 import 'package:flutter/material.dart';
 
 class DrawApp extends StatelessWidget {
@@ -10,7 +11,10 @@ class DrawApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('DrawApp'),
         ),
-        body: DrawPage(),
+        body: BlocProvider<PainterBloc>(
+          child: DrawPage(),
+          bloc: PainterBloc(),
+        ),
       ),
     );
   }

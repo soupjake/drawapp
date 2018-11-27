@@ -1,3 +1,3 @@
 import './draw_event.dart';
 
-class EndTouch implements DrawEvent {}
+class EndTouchEvent implements DrawEvent {}

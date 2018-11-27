@@ -21,11 +21,11 @@ part of 'stroke.dart';
 
 class _$Stroke extends Stroke {
   @override
-  final BuiltList<TouchLocation> locations;
+  final BuiltList<TouchLocationEvent> locations;
   @override
-  final int strokeWidth;
+  final double strokeWidth;
   @override
-  final Color color;
+  final ColorChangeEvent color;
 
   factory _$Stroke([void updates(StrokeBuilder b)]) =>
       (new StrokeBuilder()..update(updates)).build();
@@ -77,19 +77,20 @@ class _$Stroke extends Stroke {
 class StrokeBuilder implements Builder<Stroke, StrokeBuilder> {
   _$Stroke _$v;
 
-  ListBuilder<TouchLocation> _locations;
-  ListBuilder<TouchLocation> get locations =>
-      _$this._locations ??= new ListBuilder<TouchLocation>();
-  set locations(ListBuilder<TouchLocation> locations) =>
+  ListBuilder<TouchLocationEvent> _locations;
+  ListBuilder<TouchLocationEvent> get locations =>
+      _$this._locations ??= new ListBuilder<TouchLocationEvent>();
+  set locations(ListBuilder<TouchLocationEvent> locations) =>
       _$this._locations = locations;
 
-  int _strokeWidth;
-  int get strokeWidth => _$this._strokeWidth;
-  set strokeWidth(int strokeWidth) => _$this._strokeWidth = strokeWidth;
+  double _strokeWidth;
+  double get strokeWidth => _$this._strokeWidth;
+  set strokeWidth(double strokeWidth) => _$this._strokeWidth = strokeWidth;
 
-  ColorBuilder _color;
-  ColorBuilder get color => _$this._color ??= new ColorBuilder();
-  set color(ColorBuilder color) => _$this._color = color;
+  ColorChangeEventBuilder _color;
+  ColorChangeEventBuilder get color =>
+      _$this._color ??= new ColorChangeEventBuilder();
+  set color(ColorChangeEventBuilder color) => _$this._color = color;
 
   StrokeBuilder();
 

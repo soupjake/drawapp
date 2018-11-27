@@ -5,11 +5,12 @@ import './draw_event.dart';
 // Generate using `flutter packages pub run build_runner build`
 part 'touch_location.g.dart';
 
-abstract class TouchLocation
-    implements Built<TouchLocation, TouchLocationBuilder>, DrawEvent {
-  int get x;
-  int get y;
+abstract class TouchLocationEvent
+    implements Built<TouchLocationEvent, TouchLocationEventBuilder>, DrawEvent {
+  double get x;
+  double get y;
 
-  TouchLocation._();
-  factory TouchLocation([updates(TouchLocationBuilder b)]) = _$TouchLocation;
+  TouchLocationEvent._();
+  factory TouchLocationEvent([updates(TouchLocationEventBuilder b)]) =
+      _$TouchLocationEvent;
 }

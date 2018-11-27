@@ -19,7 +19,7 @@ part of 'color.dart';
 // ignore_for_file: unnecessary_new
 // ignore_for_file: test_types_in_equals
 
-class _$Color extends Color {
+class _$ColorChangeEvent extends ColorChangeEvent {
   @override
   final int red;
   @override
@@ -27,32 +27,33 @@ class _$Color extends Color {
   @override
   final int blue;
 
-  factory _$Color([void updates(ColorBuilder b)]) =>
-      (new ColorBuilder()..update(updates)).build();
+  factory _$ColorChangeEvent([void updates(ColorChangeEventBuilder b)]) =>
+      (new ColorChangeEventBuilder()..update(updates)).build();
 
-  _$Color._({this.red, this.green, this.blue}) : super._() {
+  _$ColorChangeEvent._({this.red, this.green, this.blue}) : super._() {
     if (red == null) {
-      throw new BuiltValueNullFieldError('Color', 'red');
+      throw new BuiltValueNullFieldError('ColorChangeEvent', 'red');
     }
     if (green == null) {
-      throw new BuiltValueNullFieldError('Color', 'green');
+      throw new BuiltValueNullFieldError('ColorChangeEvent', 'green');
     }
     if (blue == null) {
-      throw new BuiltValueNullFieldError('Color', 'blue');
+      throw new BuiltValueNullFieldError('ColorChangeEvent', 'blue');
     }
   }
 
   @override
-  Color rebuild(void updates(ColorBuilder b)) =>
+  ColorChangeEvent rebuild(void updates(ColorChangeEventBuilder b)) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ColorBuilder toBuilder() => new ColorBuilder()..replace(this);
+  ColorChangeEventBuilder toBuilder() =>
+      new ColorChangeEventBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Color &&
+    return other is ColorChangeEvent &&
         red == other.red &&
         green == other.green &&
         blue == other.blue;
@@ -65,7 +66,7 @@ class _$Color extends Color {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Color')
+    return (newBuiltValueToStringHelper('ColorChangeEvent')
           ..add('red', red)
           ..add('green', green)
           ..add('blue', blue))
@@ -73,8 +74,9 @@ class _$Color extends Color {
   }
 }
 
-class ColorBuilder implements Builder<Color, ColorBuilder> {
-  _$Color _$v;
+class ColorChangeEventBuilder
+    implements Builder<ColorChangeEvent, ColorChangeEventBuilder> {
+  _$ColorChangeEvent _$v;
 
   int _red;
   int get red => _$this._red;
@@ -88,9 +90,9 @@ class ColorBuilder implements Builder<Color, ColorBuilder> {
   int get blue => _$this._blue;
   set blue(int blue) => _$this._blue = blue;
 
-  ColorBuilder();
+  ColorChangeEventBuilder();
 
-  ColorBuilder get _$this {
+  ColorChangeEventBuilder get _$this {
     if (_$v != null) {
       _red = _$v.red;
       _green = _$v.green;
@@ -101,21 +103,22 @@ class ColorBuilder implements Builder<Color, ColorBuilder> {
   }
 
   @override
-  void replace(Color other) {
+  void replace(ColorChangeEvent other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$Color;
+    _$v = other as _$ColorChangeEvent;
   }
 
   @override
-  void update(void updates(ColorBuilder b)) {
+  void update(void updates(ColorChangeEventBuilder b)) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$Color build() {
-    final _$result = _$v ?? new _$Color._(red: red, green: green, blue: blue);
+  _$ColorChangeEvent build() {
+    final _$result =
+        _$v ?? new _$ColorChangeEvent._(red: red, green: green, blue: blue);
     replace(_$result);
     return _$result;
   }

@@ -8,9 +8,9 @@ import './touch_location.dart';
 part 'stroke.g.dart';
 
 abstract class Stroke implements Built<Stroke, StrokeBuilder> {
-  BuiltList<TouchLocation> get locations;
-  int get strokeWidth;
-  Color get color;
+  BuiltList<TouchLocationEvent> get locations;
+  double get strokeWidth;
+  ColorChangeEvent get color;
 
   Stroke._();
   factory Stroke([updates(StrokeBuilder b)]) = _$Stroke;

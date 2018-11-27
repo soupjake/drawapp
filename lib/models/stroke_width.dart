@@ -5,10 +5,13 @@ import './draw_event.dart';
 // Generate using `flutter packages pub run build_runner build`
 part 'stroke_width.g.dart';
 
-abstract class StrokeWidth
-    implements Built<StrokeWidth, StrokeWidthBuilder>, DrawEvent {
-  int get width;
+abstract class StrokeWidthChangeEvent
+    implements
+        Built<StrokeWidthChangeEvent, StrokeWidthChangeEventBuilder>,
+        DrawEvent {
+  double get width;
 
-  StrokeWidth._();
-  factory StrokeWidth([updates(StrokeWidthBuilder b)]) = _$StrokeWidth;
+  StrokeWidthChangeEvent._();
+  factory StrokeWidthChangeEvent([updates(StrokeWidthChangeEventBuilder b)]) =
+      _$StrokeWidthChangeEvent;
 }

@@ -5,11 +5,13 @@ import './draw_event.dart';
 // Generate using `flutter packages pub run build_runner build`
 part 'color.g.dart';
 
-abstract class Color implements Built<Color, ColorBuilder>, DrawEvent {
+abstract class ColorChangeEvent
+    implements Built<ColorChangeEvent, ColorChangeEventBuilder>, DrawEvent {
   int get red;
   int get green;
   int get blue;
 
-  Color._();
-  factory Color([updates(ColorBuilder b)]) = _$Color;
+  ColorChangeEvent._();
+  factory ColorChangeEvent([updates(ColorChangeEventBuilder b)]) =
+      _$ColorChangeEvent;
 }

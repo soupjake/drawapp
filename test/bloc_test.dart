@@ -8,17 +8,17 @@ import 'package:drawapp/models/stroke_width.dart';
 void main() {
   test('Simple stroke', () {
     final painterBloc = PainterBloc();
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 1
         ..y = 2;
     }));
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 5
         ..y = 6;
     }));
-    painterBloc.drawEvent.add(EndTouch());
+    painterBloc.drawEvent.add(EndTouchEvent());
     var callCount = 0;
     painterBloc.strokes.listen(expectAsync1(
       (strokes) {
@@ -40,30 +40,30 @@ void main() {
   test('Multiple strokes', () {
     final painterBloc = PainterBloc();
     // Stroke 1
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 1
         ..y = 2;
     }));
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 5
         ..y = 6;
     }));
-    painterBloc.drawEvent.add(EndTouch());
+    painterBloc.drawEvent.add(EndTouchEvent());
 
     // Stroke 2
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 11
         ..y = 12;
     }));
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 15
         ..y = 16;
     }));
-    painterBloc.drawEvent.add(EndTouch());
+    painterBloc.drawEvent.add(EndTouchEvent());
 
     var callCount = 0;
     painterBloc.strokes.listen(expectAsync1(
@@ -94,17 +94,17 @@ void main() {
   test('Color change splits stroke', () {
     final painterBloc = PainterBloc();
     // Stroke 1
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 1
         ..y = 2;
     }));
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 5
         ..y = 6;
     }));
-    painterBloc.drawEvent.add(Color((builder) {
+    painterBloc.drawEvent.add(ColorChangeEvent((builder) {
       builder
         ..red = 128
         ..green = 0
@@ -112,17 +112,17 @@ void main() {
     }));
 
     // Stroke 2
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 11
         ..y = 12;
     }));
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 15
         ..y = 16;
     }));
-    painterBloc.drawEvent.add(EndTouch());
+    painterBloc.drawEvent.add(EndTouchEvent());
 
     var callCount = 0;
     painterBloc.strokes.listen(expectAsync1(
@@ -134,7 +134,7 @@ void main() {
           final stroke2 = strokes[1];
 
           expect(stroke1.locations.length, 2);
-          expect(stroke1.color, Color((builder) {
+          expect(stroke1.color, ColorChangeEvent((builder) {
             builder
               ..red = 0
               ..green = 0
@@ -146,7 +146,7 @@ void main() {
           expect(stroke1.locations[1].y, 6);
 
           expect(stroke2.locations.length, 2);
-          expect(stroke2.color, Color((builder) {
+          expect(stroke2.color, ColorChangeEvent((builder) {
             builder
               ..red = 128
               ..green = 0
@@ -164,32 +164,32 @@ void main() {
   test('Stroke Width change splits stroke', () {
     final painterBloc = PainterBloc();
     // Stroke 1
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 1
         ..y = 2;
     }));
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 5
         ..y = 6;
     }));
-    painterBloc.drawEvent.add(StrokeWidth((builder) {
+    painterBloc.drawEvent.add(StrokeWidthChangeEvent((builder) {
       builder.width = 20;
     }));
 
     // Stroke 2
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 11
         ..y = 12;
     }));
-    painterBloc.drawEvent.add(TouchLocation((builder) {
+    painterBloc.drawEvent.add(TouchLocationEvent((builder) {
       builder
         ..x = 15
         ..y = 16;
     }));
-    painterBloc.drawEvent.add(EndTouch());
+    painterBloc.drawEvent.add(EndTouchEvent());
 
     var callCount = 0;
     painterBloc.strokes.listen(expectAsync1(

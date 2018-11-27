@@ -19,30 +19,33 @@ part of 'stroke_width.dart';
 // ignore_for_file: unnecessary_new
 // ignore_for_file: test_types_in_equals
 
-class _$StrokeWidth extends StrokeWidth {
+class _$StrokeWidthChangeEvent extends StrokeWidthChangeEvent {
   @override
-  final int width;
+  final double width;
 
-  factory _$StrokeWidth([void updates(StrokeWidthBuilder b)]) =>
-      (new StrokeWidthBuilder()..update(updates)).build();
+  factory _$StrokeWidthChangeEvent(
+          [void updates(StrokeWidthChangeEventBuilder b)]) =>
+      (new StrokeWidthChangeEventBuilder()..update(updates)).build();
 
-  _$StrokeWidth._({this.width}) : super._() {
+  _$StrokeWidthChangeEvent._({this.width}) : super._() {
     if (width == null) {
-      throw new BuiltValueNullFieldError('StrokeWidth', 'width');
+      throw new BuiltValueNullFieldError('StrokeWidthChangeEvent', 'width');
     }
   }
 
   @override
-  StrokeWidth rebuild(void updates(StrokeWidthBuilder b)) =>
+  StrokeWidthChangeEvent rebuild(
+          void updates(StrokeWidthChangeEventBuilder b)) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  StrokeWidthBuilder toBuilder() => new StrokeWidthBuilder()..replace(this);
+  StrokeWidthChangeEventBuilder toBuilder() =>
+      new StrokeWidthChangeEventBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is StrokeWidth && width == other.width;
+    return other is StrokeWidthChangeEvent && width == other.width;
   }
 
   @override
@@ -52,21 +55,23 @@ class _$StrokeWidth extends StrokeWidth {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('StrokeWidth')..add('width', width))
+    return (newBuiltValueToStringHelper('StrokeWidthChangeEvent')
+          ..add('width', width))
         .toString();
   }
 }
 
-class StrokeWidthBuilder implements Builder<StrokeWidth, StrokeWidthBuilder> {
-  _$StrokeWidth _$v;
+class StrokeWidthChangeEventBuilder
+    implements Builder<StrokeWidthChangeEvent, StrokeWidthChangeEventBuilder> {
+  _$StrokeWidthChangeEvent _$v;
 
-  int _width;
-  int get width => _$this._width;
-  set width(int width) => _$this._width = width;
+  double _width;
+  double get width => _$this._width;
+  set width(double width) => _$this._width = width;
 
-  StrokeWidthBuilder();
+  StrokeWidthChangeEventBuilder();
 
-  StrokeWidthBuilder get _$this {
+  StrokeWidthChangeEventBuilder get _$this {
     if (_$v != null) {
       _width = _$v.width;
       _$v = null;
@@ -75,21 +80,21 @@ class StrokeWidthBuilder implements Builder<StrokeWidth, StrokeWidthBuilder> {
   }
 
   @override
-  void replace(StrokeWidth other) {
+  void replace(StrokeWidthChangeEvent other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$StrokeWidth;
+    _$v = other as _$StrokeWidthChangeEvent;
   }
 
   @override
-  void update(void updates(StrokeWidthBuilder b)) {
+  void update(void updates(StrokeWidthChangeEventBuilder b)) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$StrokeWidth build() {
-    final _$result = _$v ?? new _$StrokeWidth._(width: width);
+  _$StrokeWidthChangeEvent build() {
+    final _$result = _$v ?? new _$StrokeWidthChangeEvent._(width: width);
     replace(_$result);
     return _$result;
   }
