@@ -2,7 +2,10 @@ import 'dart:async';
 import 'package:built_collection/built_collection.dart';
 import 'package:rxdart/rxdart.dart';
 import '../models/color.dart';
+import '../models/draw_event.dart';
+import '../models/end_touch.dart';
 import '../models/stroke.dart';
+import '../models/stroke_width.dart';
 import '../models/touch_location.dart';
 
 // Implementing BLoC pattern using the following as a guide
@@ -26,17 +29,8 @@ class PainterBloc extends BlocBase {
   int _width = 1;
 
   // Streamed input into this BLoC
-  final _touchLocationController = PublishSubject<TouchLocation>();
-  StreamSink<TouchLocation> get touchLocation => _touchLocationController.sink;
-
-  final _colorController = PublishSubject<Color>();
-  StreamSink<Color> get color => _colorController.sink;
-
-  final _widthController = PublishSubject<int>();
-  StreamSink<int> get strokeWidth => _widthController.sink;
-
-  final _endTouchController = PublishSubject<void>();
-  StreamSink<void> get endTouch => _endTouchController.sink;
+  final _drawEvents = PublishSubject<DrawEvent>();
+  StreamSink<DrawEvent> get drawEvent => _drawEvents.sink;
 
   // Streamed output from this BLoC
   final _strokesController = PublishSubject<BuiltList<Stroke>>();
@@ -44,28 +38,22 @@ class PainterBloc extends BlocBase {
   Observable<BuiltList<Stroke>> get strokes => _strokesController.stream;
 
   PainterBloc() {
-    // Adding a touch continues the current stroke
-    _touchLocationController.stream.listen((touchLocation) {
-      _locations = (_locations.toBuilder()..add(touchLocation)).build();
-      final allStrokes = (_strokes.toBuilder()..add(_stroke)).build();
-      _strokesOut.add(allStrokes);
-    });
-
-    // Changing the color finishes the current stroke
-    _colorController.stream.listen((color) {
-      finalizeCurrentStroke();
-      _color = color;
-    });
-
-    // As does changing the stroke width
-    _widthController.stream.listen((width) {
-      finalizeCurrentStroke();
-      _width = width;
-    });
-
-    // And ending the touch
-    _endTouchController.stream.listen((_) {
-      finalizeCurrentStroke();
+    _drawEvents.stream.listen((drawEvent) {
+      if (drawEvent is Color) {
+        finalizeCurrentStroke();
+        _color = drawEvent;
+      } else if (drawEvent is TouchLocation) {
+        _locations = (_locations.toBuilder()..add(drawEvent)).build();
+        final allStrokes = (_strokes.toBuilder()..add(_stroke)).build();
+        _strokesOut.add(allStrokes);
+      } else if (drawEvent is EndTouch) {
+        finalizeCurrentStroke();
+      } else if (drawEvent is StrokeWidth) {
+        finalizeCurrentStroke();
+        _width = drawEvent.width;
+      } else {
+        throw UnimplementedError('Unknown DrawEvent type: $drawEvent');
+      }
     });
   }
 
@@ -88,10 +76,7 @@ class PainterBloc extends BlocBase {
 
   @override
   void dispose() {
-    _touchLocationController.close();
-    _colorController.close();
-    _widthController.close();
+    _drawEvents.close();
     _strokesController.close();
-    _endTouchController.close();
   }
 }
