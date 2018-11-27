@@ -27,10 +27,10 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
     );
 
     // The widgets returned by build(...) change when animationStatus changes
-    controller.addStatusListener((listener) {
-      if (listener != animationStatus) {
+    controller.addStatusListener((newAnimationStatus) {
+      if (newAnimationStatus != animationStatus) {
         setState(() {
-          animationStatus = listener;
+          animationStatus = newAnimationStatus;
         });
       }
     });
