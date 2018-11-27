@@ -72,3 +72,6 @@ build/
 
 # Ignore the generated coverage file. To generate, run `flutter test --coverage`
 coverage/lcov.info
+
+# System specific config
+.packages
