@@ -11,3 +11,6 @@ linter:
    - prefer_collection_literals
    - prefer_single_quotes
    - avoid_relative_lib_imports
+   - prefer_final_fields
+   - prefer_final_locals
+   - omit_local_variable_types

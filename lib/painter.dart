@@ -16,15 +16,15 @@ class Painter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    for (Painter painter in painters) {
+    for (final painter in painters) {
       painter.paint(canvas, size);
     }
 
-    Paint paint = Paint();
+    final paint = Paint();
     paint.color = color;
     paint.strokeCap = strokeCap;
     paint.strokeWidth = strokeWidth;
-    for (int i = 0; i < points.length - 1; i++) {
+    for (var i = 0; i < points.length - 1; i++) {
       if (points[i] != null && points[i + 1] != null) {
         canvas.drawLine(points[i], points[i + 1], paint);
       }

@@ -43,8 +43,8 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
         child: GestureDetector(
           onPanUpdate: (DragUpdateDetails details) {
             setState(() {
-              RenderBox object = context.findRenderObject();
-              Offset localPosition =
+              final RenderBox object = context.findRenderObject();
+              final localPosition =
                   object.globalToLocal(details.globalPosition);
               points.add(localPosition);
             });
@@ -80,7 +80,7 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
                       child: Icon(Icons.clear),
                       onPressed: () {
                         points.clear();
-                        for (Painter painter in painters) {
+                        for (final painter in painters) {
                           painter.points.clear();
                         }
                       },
@@ -139,7 +139,7 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
                       mini: true,
                       child: Icon(Icons.color_lens),
                       onPressed: () async {
-                        Color temp = await showDialog(
+                        final temp = await showDialog(
                           context: context,
                           builder: (context) => ColorDialog(),
                         );

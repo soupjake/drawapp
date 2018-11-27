@@ -26,7 +26,7 @@ class WidthDialogTestingState extends State<WidthDialogTester> {
           child: MaterialButton(
             child: Text('Select Stroke Width'),
             onPressed: () async {
-              var temp = await showDialog(
+              final temp = await showDialog(
                 context: context,
                 builder: (context) => WidthDialog(
                       strokeWidth: initialWidth,
