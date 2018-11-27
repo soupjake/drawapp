@@ -9,7 +9,7 @@ class ColorDialogState extends State<ColorDialog> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-        title: Text("Brush color"),
+        title: Text('Brush color'),
         contentPadding: const EdgeInsets.all(12.0),
         children: <Widget>[
           Row(

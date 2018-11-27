@@ -4,3 +4,10 @@ linter:
   rules:
    - always_put_control_body_on_new_line
    - curly_braces_in_flow_control_structures
+   - unnecessary_new
+   - avoid_relative_lib_imports
+   - directives_ordering
+   - file_names
+   - prefer_collection_literals
+   - prefer_single_quotes
+   - avoid_relative_lib_imports

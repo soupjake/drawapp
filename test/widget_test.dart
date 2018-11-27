@@ -13,7 +13,7 @@ import './width_dialog_tester.dart';
 void main() {
   testWidgets('Clicking brush FAB displays mini fabs', (tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(new DrawApp());
+    await tester.pumpWidget(DrawApp());
 
     expect(find.byIcon(Icons.brush), findsOneWidget);
 
@@ -31,7 +31,7 @@ void main() {
 
   testWidgets('Clicking brush FAB twice hides mini fabs', (tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(new DrawApp());
+    await tester.pumpWidget(DrawApp());
 
     expect(find.byIcon(Icons.brush), findsOneWidget);
 
@@ -52,7 +52,7 @@ void main() {
 
   testWidgets('Clicking the lens icon brings up the Brush thickness panel',
       (tester) async {
-    await tester.pumpWidget(new DrawApp());
+    await tester.pumpWidget(DrawApp());
 
     expect(find.byIcon(Icons.brush), findsOneWidget);
 
@@ -77,7 +77,7 @@ void main() {
 
   testWidgets('Clicking the color lens icon brings up the Brush color panel',
       (tester) async {
-    await tester.pumpWidget(new DrawApp());
+    await tester.pumpWidget(DrawApp());
 
     expect(find.byIcon(Icons.brush), findsOneWidget);
 

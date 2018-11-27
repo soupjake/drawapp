@@ -20,7 +20,7 @@ class Painter extends CustomPainter {
       painter.paint(canvas, size);
     }
 
-    Paint paint = new Paint();
+    Paint paint = Paint();
     paint.color = color;
     paint.strokeCap = strokeCap;
     paint.strokeWidth = strokeWidth;

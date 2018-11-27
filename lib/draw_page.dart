@@ -1,12 +1,12 @@
-import 'package:drawapp/color_dialog.dart';
-import 'package:drawapp/painter.dart';
-import 'package:drawapp/width_dialog.dart';
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:drawapp/dialogs/color_dialog.dart';
+import 'package:drawapp/dialogs/width_dialog.dart';
+import 'package:drawapp/painter.dart';
+import 'package:flutter/material.dart';
 
 class DrawPage extends StatefulWidget {
   @override
-  DrawPageState createState() => new DrawPageState();
+  DrawPageState createState() => DrawPageState();
 }
 
 class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
@@ -21,7 +21,7 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    controller = new AnimationController(
+    controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );

@@ -10,7 +10,8 @@ class DrawApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('DrawApp'),
         ),
-        body: DrawPage()),
+        body: DrawPage(),
+      ),
     );
   }
 }

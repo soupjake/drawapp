@@ -1,5 +1,5 @@
+import 'package:drawapp/dialogs/width_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:drawapp/width_dialog.dart';
 
 class WidthDialogTester extends StatefulWidget {
   final double initialWidth;

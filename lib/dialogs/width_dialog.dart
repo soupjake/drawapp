@@ -21,7 +21,7 @@ class WidthDialogState extends State<WidthDialog> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-        title: Text("Brush thickness"),
+        title: Text('Brush thickness'),
         contentPadding: const EdgeInsets.all(12.0),
         children: <Widget>[
           Padding(
@@ -29,8 +29,8 @@ class WidthDialogState extends State<WidthDialog> {
               child: Container(
                 width: strokeWidth,
                 height: strokeWidth,
-                decoration: new BoxDecoration(
-                    color: Colors.black, shape: BoxShape.circle),
+                decoration:
+                    BoxDecoration(color: Colors.black, shape: BoxShape.circle),
               )),
           Slider(
             value: strokeWidth,
@@ -47,7 +47,7 @@ class WidthDialogState extends State<WidthDialog> {
             children: <Widget>[
               FlatButton(
                   child: Text(
-                    "CANCEL",
+                    'CANCEL',
                     style: TextStyle(color: ThemeData().accentColor),
                   ),
                   onPressed: () async {
@@ -55,7 +55,7 @@ class WidthDialogState extends State<WidthDialog> {
                   }),
               FlatButton(
                   child: Text(
-                    "ACCEPT",
+                    'ACCEPT',
                     style: TextStyle(color: ThemeData().accentColor),
                   ),
                   onPressed: () async {
