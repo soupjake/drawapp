@@ -112,18 +112,16 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
                       mini: true,
                       child: Icon(Icons.lens),
                       onPressed: () async {
-                        bloc.width.take(1).listen((final strokeWidth) async {
-                          final newWidth = await showDialog(
-                              context: context,
-                              builder: (context) =>
-                                  WidthDialog(strokeWidth: strokeWidth));
-                          if (newWidth != null) {
-                            bloc.drawEvent
-                                .add(StrokeWidthChangeEvent((builder) {
-                              builder.width = newWidth;
-                            }));
-                          }
-                        });
+                        final strokeWidth = await bloc.width.first;
+                        final newWidth = await showDialog(
+                            context: context,
+                            builder: (context) =>
+                                WidthDialog(strokeWidth: strokeWidth));
+                        if (newWidth != null) {
+                          bloc.drawEvent.add(StrokeWidthChangeEvent((builder) {
+                            builder.width = newWidth;
+                          }));
+                        }
                       },
                     ),
                   ),
@@ -144,20 +142,18 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
                       mini: true,
                       child: Icon(Icons.color_lens),
                       onPressed: () async {
-                        bloc.color.take(1).listen((final color) async {
-                          final newColor = await showDialog(
-                            context: context,
-                            builder: (context) => ColorDialog(),
-                          ) as Color;
-                          if (newColor != null) {
-                            bloc.drawEvent.add(ColorChangeEvent((builder) {
-                              builder
-                                ..red = newColor.red
-                                ..green = newColor.green
-                                ..blue = newColor.blue;
-                            }));
-                          }
-                        });
+                        final newColor = await showDialog(
+                          context: context,
+                          builder: (context) => ColorDialog(),
+                        ) as Color;
+                        if (newColor != null) {
+                          bloc.drawEvent.add(ColorChangeEvent((builder) {
+                            builder
+                              ..red = newColor.red
+                              ..green = newColor.green
+                              ..blue = newColor.blue;
+                          }));
+                        }
                       },
                     ),
                   ),
