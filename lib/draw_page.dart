@@ -112,7 +112,7 @@ class DrawPageState extends State<DrawPage> with TickerProviderStateMixin {
                       mini: true,
                       child: Icon(Icons.lens),
                       onPressed: () async {
-                        final strokeWidth = await bloc.width.first;
+                        final strokeWidth = bloc.width.value;
                         final newWidth = await showDialog(
                             context: context,
                             builder: (context) =>

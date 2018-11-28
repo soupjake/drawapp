@@ -23,7 +23,7 @@ void main() {
     painterBloc.strokes.listen(expectAsync1(
       (strokes) {
         callCount++;
-        if (callCount > 1) {
+        if (callCount > 2) {
           expect(strokes.length, 1);
           final stroke1 = strokes[0];
           expect(stroke1.locations.length, 2);
@@ -33,7 +33,7 @@ void main() {
           expect(stroke1.locations[1].y, 6);
         }
       },
-      count: 3,
+      count: 4,
     ));
   });
 
@@ -87,7 +87,7 @@ void main() {
           expect(stroke2.locations[1].y, 16);
         }
       },
-      count: 6,
+      count: 7,
     ));
   });
 
@@ -158,7 +158,7 @@ void main() {
           expect(stroke2.locations[1].y, 16);
         }
       },
-      count: 6,
+      count: 7,
     ));
   });
   test('Stroke Width change splits stroke', () {
@@ -215,7 +215,7 @@ void main() {
           expect(stroke2.locations[1].y, 16);
         }
       },
-      count: 6,
+      count: 7,
     ));
   });
 }

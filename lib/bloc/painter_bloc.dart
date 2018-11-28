@@ -26,21 +26,21 @@ class PainterBloc extends BlocBase {
   double _width = 1;
 
   // Streamed input into this BLoC
-  final _drawEvents = PublishSubject<DrawEvent>();
+  final _drawEvents = BehaviorSubject<DrawEvent>();
   StreamSink<DrawEvent> get drawEvent => _drawEvents.sink;
 
   // Streamed outputs from this BLoC
-  final _strokesSubject = PublishSubject<BuiltList<Stroke>>();
+  final _strokesSubject = BehaviorSubject<BuiltList<Stroke>>();
   StreamSink<BuiltList<Stroke>> get _strokesOut => _strokesSubject.sink;
-  Observable<BuiltList<Stroke>> get strokes => _strokesSubject.stream;
+  ValueObservable<BuiltList<Stroke>> get strokes => _strokesSubject.stream;
 
-  final _colorSubject = PublishSubject<ColorChangeEvent>();
+  final _colorSubject = BehaviorSubject<ColorChangeEvent>();
   StreamSink<ColorChangeEvent> get _colorOut => _colorSubject.sink;
-  Observable<ColorChangeEvent> get color => _colorSubject.stream;
+  ValueObservable<ColorChangeEvent> get color => _colorSubject.stream;
 
-  final _widthSubject = PublishSubject<double>();
+  final _widthSubject = BehaviorSubject<double>();
   StreamSink<double> get _widthOut => _widthSubject.sink;
-  Observable<double> get width => _widthSubject.stream;
+  ValueObservable<double> get width => _widthSubject.stream;
 
   PainterBloc() {
     // Publish initial state
