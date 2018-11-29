@@ -6,24 +6,180 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:drawapp/app.dart';
+import './color_dialog_tester.dart';
+import './width_dialog_tester.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Clicking brush FAB displays mini fabs', (tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(new DrawApp());
+    await tester.pumpWidget(DrawApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.byIcon(Icons.brush), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    expect(find.byIcon(Icons.clear), findsNothing);
+    expect(find.byIcon(Icons.lens), findsNothing);
+    expect(find.byIcon(Icons.color_lens), findsNothing);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.brush));
+    await tester.pumpAndSettle();
+
+    expect(find.byIcon(Icons.clear), findsOneWidget);
+    expect(find.byIcon(Icons.lens), findsOneWidget);
+    expect(find.byIcon(Icons.color_lens), findsOneWidget);
+  });
+
+  testWidgets('Clicking brush FAB twice hides mini fabs', (tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(DrawApp());
+
+    expect(find.byIcon(Icons.brush), findsOneWidget);
+
+    expect(find.byIcon(Icons.clear), findsNothing);
+    expect(find.byIcon(Icons.lens), findsNothing);
+    expect(find.byIcon(Icons.color_lens), findsNothing);
+
+    await tester.tap(find.byIcon(Icons.brush));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byIcon(Icons.brush));
+    await tester.pumpAndSettle();
+
+    expect(find.byIcon(Icons.clear), findsNothing);
+    expect(find.byIcon(Icons.lens), findsNothing);
+    expect(find.byIcon(Icons.color_lens), findsNothing);
+  });
+
+  testWidgets('Clicking the lens icon brings up the Brush thickness panel',
+      (tester) async {
+    await tester.pumpWidget(DrawApp());
+
+    expect(find.byIcon(Icons.brush), findsOneWidget);
+
+    expect(find.text('Brush thickness'), findsNothing);
+
+    await tester.tap(find.byIcon(Icons.brush));
+    await tester.pumpAndSettle();
+
+    expect(find.byIcon(Icons.lens), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.lens));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Brush thickness'), findsOneWidget);
+    expect(find.text('CANCEL'), findsOneWidget);
+
+    await tester.tap(find.text('CANCEL'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Brush thickness'), findsNothing);
+  });
+
+  testWidgets('Clicking the color lens icon brings up the Brush color panel',
+      (tester) async {
+    await tester.pumpWidget(DrawApp());
+
+    expect(find.byIcon(Icons.brush), findsOneWidget);
+
+    expect(find.text('Brush color'), findsNothing);
+
+    await tester.tap(find.byIcon(Icons.brush));
+    await tester.pumpAndSettle();
+
+    expect(find.byIcon(Icons.color_lens), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.color_lens));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Brush color'), findsOneWidget);
+    expect(
+        find.byWidgetPredicate((widget) =>
+            widget is FloatingActionButton &&
+            widget.backgroundColor == Colors.red),
+        findsOneWidget);
+
+    await tester.tap(find.byWidgetPredicate((widget) =>
+        widget is FloatingActionButton &&
+        widget.backgroundColor == Colors.red));
+    await tester.pumpAndSettle();
+    expect(find.text('Brush color'), findsNothing);
+  });
+
+  testWidgets('Test Color Dialog', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        title: 'DrawApp',
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Color Dialog Tester'),
+          ),
+          body: ColorDialogTester(),
+        ),
+      ),
+    );
+
+    expect(find.text('Select Color'), findsOneWidget);
+    expect(find.text('Selected color null'), findsOneWidget);
+
+    await tester.tap(find.text('Select Color'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Brush color'), findsOneWidget);
+    expect(
+        find.byWidgetPredicate((widget) =>
+            widget is FloatingActionButton &&
+            widget.backgroundColor == Colors.red),
+        findsOneWidget);
+
+    await tester.tap(find.byWidgetPredicate((widget) =>
+        widget is FloatingActionButton &&
+        widget.backgroundColor == Colors.red));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Brush color'), findsNothing);
+    expect(find.text('Selected color Color(0xfff44336)'), findsOneWidget);
+  });
+
+  testWidgets('Test Width Dialog', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        title: 'DrawApp',
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Width Dialog Tester'),
+          ),
+          body: WidthDialogTester(
+            initialWidth: 1.0,
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Select Stroke Width'), findsOneWidget);
+    expect(find.text('Selected width 0.0'), findsOneWidget);
+
+    await tester.tap(find.text('Select Stroke Width'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Brush thickness'), findsOneWidget);
+    expect(find.byWidgetPredicate(
+      (widget) {
+        return widget is Slider;
+      },
+    ), findsOneWidget);
+    expect(find.text('ACCEPT'), findsOneWidget);
+
+    await tester.tap(
+      find.byWidgetPredicate(
+        (widget) {
+          return widget is Slider;
+        },
+      ),
+    );
+    await tester.tap(find.text('ACCEPT'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Brush thickness'), findsNothing);
+    expect(find.text('Selected width 10.5'), findsOneWidget);
   });
 }
