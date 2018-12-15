@@ -1,5 +1,9 @@
 # DrawApp
 
+<a href="https://stackoverflow.com/questions/tagged/flutter?sort=votes">
+   <img alt="Awesome Flutter" src="https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square" />
+</a>
+
 Sample Flutter Drawing App which allows the user to draw onto the canvas along with color picker and brush thickness slider.
 
 ![](drawapp.gif)
